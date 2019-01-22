@@ -1,5 +1,5 @@
 (in-package #:com.liutos.cl-github-page.post)
-
+;; 得到文章的作者
 (defun get-post-author (source)
   (declare (optimize (speed 0)))
   (if (pathnamep source)
@@ -19,7 +19,7 @@
      :format '(:year "年" :month "月" :day "日"))))
 
 ;;; EXPORT
-
+;; 添加新的文章
 (defun add-post (source
                  &key
                    author

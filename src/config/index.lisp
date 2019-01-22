@@ -36,7 +36,8 @@
   (or (py-configparser:get-option *config* "template" "root")
       (merge-pathnames "src/template/tmpl/"
                        (asdf:system-source-directory 'cl-github-page))))
-
+;; 初始化系统
+;; 如果没指定目录，就使用用户目录
 (defun init (&optional path)
   (unless path
     (setf path (merge-pathnames ".blog.ini" (user-homedir-pathname))))
