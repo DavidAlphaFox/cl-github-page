@@ -21,10 +21,10 @@
       (read-sequence content stream) ;; 将文件读入数组中
       (flexi-streams:octets-to-string content
                                       :external-format :utf-8)))) ;; 将该数组转化成utf8字符串
-
+;; 判断文件是否存在
 (defun is-file-exists (pathspec)
-  (and (file-exists-p pathspec)
-       (not (directory-exists-p pathspec))))
+  (and (file-exists-p pathspec) ;; 文件存在
+       (not (directory-exists-p pathspec)))) ;; 并且文件不是目录
 
 (defun set-file-content (content filespec)
   (with-open-file (stream filespec
