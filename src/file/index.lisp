@@ -25,7 +25,7 @@
 (defun is-file-exists (pathspec)
   (and (file-exists-p pathspec) ;; 文件存在
        (not (directory-exists-p pathspec)))) ;; 并且文件不是目录
-
+;; 将内容写入文件
 (defun set-file-content (content filespec)
   (with-open-file (stream filespec
                           :direction :output

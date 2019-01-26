@@ -5,7 +5,7 @@
   (check-type category-id integer)
   (merge-pathnames (format nil "categories/~D.html" category-id)
                    (com.liutos.cl-github-page.config:get-blog-root)))
-
+;; 创建分页分页链接
 (defun make-pagination-path (page-number)
   (let ((path (if (zerop page-number)
                   "index.html"

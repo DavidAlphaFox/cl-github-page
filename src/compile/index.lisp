@@ -8,7 +8,7 @@
 
 (defun make-uri (path)
   (concatenate 'string *schema* path))
-
+;;使用github的markdown渲染器进行渲染
 (defun compile-by-github (text
                           &key
                             (mode *mode*))
