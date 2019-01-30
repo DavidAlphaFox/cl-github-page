@@ -180,6 +180,7 @@
     (make-plist-from-rows result-set)))
 
 (defun start ()
+  "链接数据库"
   (apply #'connect (com.liutos.cl-github-page.config:get-database-options))
   (query "SET NAMES utf8"))
 

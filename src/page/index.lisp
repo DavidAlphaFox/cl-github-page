@@ -45,6 +45,7 @@
       (write-category-page (getf category :category_id)))))
 
 (defun write-all-pagination-pages ()
+  "生成分页"
   (let* ((posts (com.liutos.cl-github-page.storage:get-post-list))
          (p3 (com.liutos.cl-github-page.config:get-posts-per-page))
          (total-pages (ceiling (/ (length posts) p3))))
@@ -145,7 +146,7 @@
        :destination destination)
       (com.liutos.cl-github-page.storage:update-post post-id
                                                      :build-at (com.liutos.cl-github-page.misc:make-datetime-of-now)))))
-
+;;生成rss的分页
 (defun write-rss-page (&optional
                          (nposts (com.liutos.cl-github-page.config:get-nposts-in-rss)))
   (let* ((destination (make-rss-path))

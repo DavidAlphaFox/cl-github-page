@@ -1,6 +1,7 @@
 (in-package #:com.liutos.cl-github-page.post)
 ;; 得到文章的作者
 (defun get-post-author (source)
+  "文章的作者是取的系统用户的名称"
   (declare (optimize (speed 0)))
   (if (pathnamep source)
       (progn
@@ -27,16 +28,17 @@
                    post-id
                    title
                    write-at)
+  "添加新的文章，source是文章的mardown全文路径"
   (check-type category-id (or fixnum null))
   (unless author
     (setf author (get-post-author source)))
   (when (and (pathnamep source) (null title))
-    (setf title (com.liutos.cl-github-page.file:get-basename source)))
+    (setf title (com.liutos.cl-github-page.file:get-basename source))) ;;文章的title就是文件名
   (when (pathnamep source)
     (if (com.liutos.cl-github-page.file:is-file-exists source)
         (setf source (com.liutos.cl-github-page.file:get-file-content source))
         (error "~A: 文件不存在" source)))
-  (when (com.liutos.cl-github-page.storage:find-post-by-source source)
+  (when (com.liutos.cl-github-page.storage:find-post-by-source source);; 在database中依据路径查找是否有相同文章
     (error "存在一模一样的文章"))
   (let (body)
     (setf body
@@ -47,7 +49,7 @@
                                                    title
                                                    :author author
                                                    :post-id post-id
-                                                   :write-at write-at)
+                                                   :write-at write-at) ;; 将文章保存到数据库中
     (let ((post-id (com.liutos.cl-github-page.storage:find-max-post-id)))
       (let ((default-category (com.liutos.cl-github-page.config:get-default-category)))
         (when (and category-id default-category)
@@ -56,7 +58,7 @@
                       :category_id))))
       (when category-id
         (com.liutos.cl-github-page.bind:bind-category-post category-id post-id))
-      post-id)))
+      post-id))) ;;增加分类的ID
 
 (defun delete-post (post-id)
   (unless (com.liutos.cl-github-page.storage:find-post post-id)
